@@ -54,32 +54,37 @@ export default function EditModal({ isOpen, task, onSave, onCancel }) {
 
   return (
     <div className="modal-overlay" onClick={onCancel}>
-      <div className="modal-dialog modal-lg" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+      <div className="modal-dialog" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
         <div className="modal-header">
-          <div>
+          <div className="modal-header-info">
+            <span className="modal-badge">Editing Task #{task.id}</span>
             <h3 className="modal-title">Edit Task</h3>
-            <p className="modal-subtitle">Update task title, description, and status.</p>
           </div>
-          <button className="btn-icon close-btn" onClick={onCancel} aria-label="Close">
+          <button className="btn-icon close-btn" onClick={onCancel} aria-label="Close dialog">
             ✕
           </button>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="modal-body">
             {error && (
               <div className="alert-error" role="alert">
-                <span className="alert-icon">⚠️</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
                 <span>{error}</span>
               </div>
             )}
 
+            {/* 1. Title */}
             <div className="form-group">
-              <label htmlFor="edit-title">
-                Task Title <span className="required">*</span>
+              <label htmlFor="edit-task-title" className="form-label">
+                Title <span className="required-star">*</span>
               </label>
               <input
-                id="edit-title"
+                id="edit-task-title"
                 type="text"
                 className={`form-input ${error && !title.trim() ? "input-error" : ""}`}
                 value={title}
@@ -92,29 +97,44 @@ export default function EditModal({ isOpen, task, onSave, onCancel }) {
               />
             </div>
 
+            {/* 2. Description */}
             <div className="form-group">
-              <label htmlFor="edit-desc">Description (Optional)</label>
+              <label htmlFor="edit-task-desc" className="form-label">
+                Description <span className="label-optional">(Optional)</span>
+              </label>
               <textarea
-                id="edit-desc"
+                id="edit-task-desc"
                 rows="4"
                 className="form-textarea"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Add more details, links, or sub-notes..."
+                placeholder="Update description or notes..."
               />
             </div>
 
+            {/* 3. Status */}
             <div className="form-group">
-              <label htmlFor="edit-status">Status</label>
-              <select
-                id="edit-status"
-                className="form-select"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-              </select>
+              <label htmlFor="edit-task-status" className="form-label">
+                Status
+              </label>
+              <div className="status-selector-group">
+                <button
+                  type="button"
+                  className={`status-chip ${status === "pending" ? "selected pending" : ""}`}
+                  onClick={() => setStatus("pending")}
+                >
+                  <span className="chip-dot pending"></span>
+                  Pending
+                </button>
+                <button
+                  type="button"
+                  className={`status-chip ${status === "completed" ? "selected completed" : ""}`}
+                  onClick={() => setStatus("completed")}
+                >
+                  <span className="chip-dot completed"></span>
+                  Completed
+                </button>
+              </div>
             </div>
           </div>
 
@@ -123,7 +143,7 @@ export default function EditModal({ isOpen, task, onSave, onCancel }) {
               Cancel
             </button>
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-              {isSubmitting ? "Saving..." : "Save Changes"}
+              {isSubmitting ? "Saving Changes..." : "Save Changes"}
             </button>
           </div>
         </form>
