@@ -11,7 +11,7 @@ This project fulfills all required specifications and bonus objectives of the *F
 
 ---
 
-## 🗄️ Database Schema
+##  Database Schema
 
 The database strictly conforms to Section 4 of the specification:
 
@@ -27,7 +27,7 @@ The database strictly conforms to Section 4 of the specification:
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 ### Core Requirements
 - **View All Tasks**: Displays title, optional description, status badge (`Pending` / `Completed`), and creation timestamp.
@@ -46,7 +46,7 @@ The database strictly conforms to Section 4 of the specification:
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 task-flow/
@@ -95,7 +95,7 @@ task-flow/
 
 ---
 
-## 🛠️ Prerequisites
+##  Prerequisites
 
 Ensure you have the following installed on your machine:
 - **Node.js**: `v18+` (Tested on `v24.19.0`) and `npm`
@@ -104,7 +104,7 @@ Ensure you have the following installed on your machine:
 
 ---
 
-## 🚀 Quick Setup & Run Instructions (< 5 Minutes)
+##  Quick Setup & Run Instructions (< 5 Minutes)
 
 ### 1. Database Setup (MySQL)
 
@@ -119,7 +119,7 @@ CREATE DATABASE task_flow_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 mysql -u root -p task_flow_db < backend/schema.sql
 ```
 
-> #### 💡 Zero-Config Database Fallback
+> ####  Zero-Config Database Fallback
 > If you don't have a local MySQL server running and want to evaluate the project immediately, the backend includes an automatic fallback:
 > - In `backend/.env`, set `USE_SQLITE=true`.
 > - The application will persist to a local SQLite database (`tasks.db`) without requiring MySQL credentials.
@@ -184,7 +184,7 @@ mysql -u root -p task_flow_db < backend/schema.sql
 
 ---
 
-## 🧪 Running Backend Unit Tests
+##  Running Backend Unit Tests
 
 The backend includes a dedicated unit test suite using **pytest** and in-memory isolated database engines.
 
@@ -199,7 +199,7 @@ pytest backend/tests -v
 
 ---
 
-## 📡 REST API Reference
+##  REST API Reference
 
 All responses return standard `application/json` bodies and accurate status codes.
 
