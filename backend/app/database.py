@@ -1,5 +1,5 @@
 import logging
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import declarative_base, sessionmaker
 from app.config import DATABASE_URL, USE_SQLITE
 
@@ -49,5 +49,11 @@ def get_db():
 
 def init_db():
     from app.models.task import Task  # noqa: F401
+    inspector = inspect(engine)
+    if inspector.has_table("tasks"):
+        columns = [c["name"] for c in inspector.get_columns("tasks")]
+        # If the table still contains legacy columns from before the 6-column spec
+        if "priority" in columns or "due_date" in columns:
+            logger.info("Detected legacy columns; refreshing tasks table schema...")
+            Base.metadata.drop_all(bind=engine, tables=[Task.__table__])
     Base.metadata.create_all(bind=engine)
-
