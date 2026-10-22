@@ -47,7 +47,7 @@ export default function TaskForm({ onAddTask }) {
           <span className="form-badge">Create</span>
           <h2 className="form-heading">Add a New Task</h2>
         </div>
-        <span className="keyboard-hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to submit</span>
+
       </div>
 
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} noValidate>
